@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import colors from '../../style/colors';
 
+export const Wrapper = styled.View`
+  height: 100px;
+`;
+
 export const Container = styled.View`
   flex: 1;
   flex-direction: row;
