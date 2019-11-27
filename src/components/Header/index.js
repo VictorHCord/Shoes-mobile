@@ -6,7 +6,6 @@ import { Container, ItemCount, CartContainer, Wrapper } from './styles';
 import logo from '../../assets/images/logo.png';
 
 function Header({ navigation }) {
-  console.tron.log('Cart');
   return (
     <Wrapper>
       <Container>

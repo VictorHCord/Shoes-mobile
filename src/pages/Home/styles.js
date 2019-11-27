@@ -5,7 +5,7 @@ import colors from '../../style/colors';
 export const ProductList = styled.View`
   background: #fff;
   padding: 10px;
-  margin: 15px;
+  margin: 15px auto;
   border-radius: 4px;
   width: 220px;
 `;
@@ -52,3 +52,6 @@ export const ProductCart = styled.Text`
   color: #fff;
   margin: 0px 4px 0px 10px;
 `;
+
+export const FlatList = styled.FlatList``;
+export const Container = styled.View``;
