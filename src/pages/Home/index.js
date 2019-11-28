@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { formatPrice } from '../../util/format';
 import api from '../../services/api';
 import {
   ProductList,
@@ -15,7 +16,7 @@ import {
   Container,
 } from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -25,16 +26,27 @@ export default class Home extends Component {
 
     const data = response.data.map(product => ({
       ...product,
+      priceFormatted: formatPrice(product.price),
     }));
 
     this.setState({ products: data });
   }
+
+  handleAddProduct = product => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
+  };
 
   render() {
     const { products } = this.state;
     return (
       <Container>
         <FlatList
+          horizontal
           data={products}
           keyExtractor={product => String(product.id)}
           renderItem={({ item }) => {
@@ -42,13 +54,15 @@ export default class Home extends Component {
               <ProductList>
                 <ItemImage source={{ uri: item.image }} />
                 <Title>{item.title}</Title>
-                <PriceProduct>{item.price}</PriceProduct>
+                <PriceProduct>{item.priceFormatted}</PriceProduct>
                 <ButtonCart>
                   <ProductAmount>
                     <Icon name="shopping-cart" size={24} color="#fff" />
                     <ProductCart> 3 </ProductCart>
                   </ProductAmount>
-                  <AddButtonCar> Adicionar </AddButtonCar>
+                  <AddButtonCar onPress={() => this.handleAddProduct(products)}>
+                    Adicionar
+                  </AddButtonCar>
                 </ButtonCart>
               </ProductList>
             );
@@ -58,3 +72,5 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect()(Home);

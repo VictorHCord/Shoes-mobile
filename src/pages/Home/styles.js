@@ -5,7 +5,7 @@ import colors from '../../style/colors';
 export const ProductList = styled.View`
   background: #fff;
   padding: 10px;
-  margin: 15px auto;
+  margin: 15px;
   border-radius: 4px;
   width: 220px;
 `;
@@ -28,7 +28,7 @@ export const ProductAmount = styled.View`
   align-items: center;
 `;
 export const PriceProduct = styled.Text`
-  font-size: 21px;
+  font-size: 20px;
   font-weight: bold;
   margin: 14px 0px;
   margin-bottom: 14px;
