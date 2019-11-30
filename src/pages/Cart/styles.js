@@ -26,6 +26,8 @@ export const ProductImage = styled.Image`
 `;
 
 export const TitleProduct = styled.Text``;
+export const Product = styled.View``;
+export const Products = styled.View``;
 
 export const PriceItem = styled.Text`
   font-weight: bold;

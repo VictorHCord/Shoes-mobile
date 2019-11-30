@@ -41,32 +41,33 @@ class Home extends Component {
     });
   };
 
+  renderItems = ({ item }) => {
+    return (
+      <ProductList key={item.id}>
+        <ItemImage source={{ uri: item.image }} />
+        <Title>{item.title}</Title>
+        <PriceProduct>{item.priceFormatted}</PriceProduct>
+        <ButtonCart onPress={() => this.handleAddProduct(item)}>
+          <ProductAmount>
+            <Icon name="shopping-cart" size={24} color="#fff" />
+            <ProductCart> 3 </ProductCart>
+          </ProductAmount>
+          <AddButtonCar>Adicionar</AddButtonCar>
+        </ButtonCart>
+      </ProductList>
+    );
+  };
+
   render() {
     const { products } = this.state;
     return (
       <Container>
         <FlatList
           horizontal
+          extraData={this.props}
           data={products}
-          keyExtractor={product => String(product.id)}
-          renderItem={({ item }) => {
-            return (
-              <ProductList>
-                <ItemImage source={{ uri: item.image }} />
-                <Title>{item.title}</Title>
-                <PriceProduct>{item.priceFormatted}</PriceProduct>
-                <ButtonCart>
-                  <ProductAmount>
-                    <Icon name="shopping-cart" size={24} color="#fff" />
-                    <ProductCart> 3 </ProductCart>
-                  </ProductAmount>
-                  <AddButtonCar onPress={() => this.handleAddProduct(products)}>
-                    Adicionar
-                  </AddButtonCar>
-                </ButtonCart>
-              </ProductList>
-            );
-          }}
+          keyExtractor={item => String(item.id)}
+          renderItem={this.renderItems}
         />
       </Container>
     );
