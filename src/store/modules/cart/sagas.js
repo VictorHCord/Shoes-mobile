@@ -1,14 +1,54 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { Alert } from 'react-native';
+import { call, select ,put, all, takeLatest } from 'redux-saga/effects';
 import api from "../../../services/api";
-import { AddToCartSuccess } from './actions'
+import { formatPrice } from "../../../util/format";
+import { AddToCartSuccess, UpdateAmountSuccess } from './actions'
 
 function* addToCart({ id }) {
-  const response = yield call(api.get, `/products/${id}`);
-  
-  yield put(AddToCartSuccess(response.data));
 
+  const productExists = yield select(
+    state => state.cart.find(p => p.id === id)
+  )
+
+  const stock = yield call(api.get, `/stock/${id}`);
+  
+  const stockAmount = stock.data.amount;
+  const currentAmount = productExists ? productExists.amount : 0;
+
+  const amount = currentAmount + 1;
+
+  if (amount > stockAmount) {
+    Alert.alert('Quantidade já esgotada');
+    return;
+  }
+  if (productExists) {
+    yield put(UpdateAmountSuccess(id, amount))
+  } else{
+    const response = yield call(api.get, `/products/${id}`);
+
+  const data = {
+    ...response.data,
+    amount: 1,
+    priceFormatted: formatPrice(response.data.price)
+  }  
+  yield put(AddToCartSuccess(data));
+  }
 }
 
+function* updateAmount({id,amount}) {
+  if (amount <= 0) return;
+
+  const stock = yield call(api.get, `stock/${id}`);
+
+  const stockAmount = stock.data.amount;
+
+  if (amount > stockAmount) {
+    Alert.alert('Quantidade já esgotada');
+    return;
+  }
+  yield put(UpdateAmountSuccess(id, amount));
+}
 export default all([
   takeLatest('@cart/ADD_REQUEST', addToCart),
+  takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
 ]);

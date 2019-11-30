@@ -28,14 +28,14 @@ import {
 
 } from './styles';
 
-function Cart({ products , total , RemoveFromCart, UpdateAmount }) {
+function Cart({ products , total , RemoveFromCart, UpdateAmountRequest }) {
 
   function increment(product) {
-    UpdateAmount(product.id , product.amount + 1)
+    UpdateAmountRequest(product.id , product.amount + 1)
   }
 
   function decrement(product) {
-    UpdateAmount(product.id, product.amount - 1);
+    UpdateAmountRequest(product.id, product.amount - 1);
   }
 
   return (
