@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-
+import colors from '../../style/colors';
 export const Container = styled.View`
   padding: 10px;
   background: #fff;
@@ -26,6 +26,7 @@ export const ProductImage = styled.Image`
 `;
 
 export const TitleProduct = styled.Text``;
+
 export const Product = styled.View``;
 export const Products = styled.View``;
 
@@ -66,3 +67,41 @@ export const SubTotal = styled.Text`
   font-size: 16px;
   margin-right: 10px;
 `;
+
+
+  export const ListFinal = styled.View`
+    margin-top: 30px;
+  `;
+
+
+  export const TextTotal = styled.Text`
+    font-size: 16px;
+    color: #999;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  `;
+
+  export const ButtonFinally = styled.TouchableOpacity`
+    background: ${colors.primary};
+    margin: 15px;
+    padding: 15px;
+    border-radius: 4px;
+  `;
+
+  export const ButtonFinallyText = styled.Text`
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+  `;
+
+
+  export const TotalInformation = styled.Text`
+    font-size:30px;
+    font-weight: bold;
+    letter-spacing: -1.6px
+    text-align: center;
+    color:#000
+  `;
+  

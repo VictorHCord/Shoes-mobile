@@ -44,6 +44,7 @@ export const AddButtonCar = styled.Text`
 export const ButtonCart = styled.TouchableOpacity`
   background: ${colors.primary};
   flex-direction: row;
+  overflow: hidden;
   align-items: center;
   border-radius: 4px;
   margin-top: auto;
